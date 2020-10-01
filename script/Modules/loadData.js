@@ -29,7 +29,7 @@ export const loadData = () => {
             getData.search(value, data => console.log(data));
         } else if (prop === 'wishlist') {
             getData.wishList(wishList, data => console.log(data));
-        } else {
+        } else if (prop === 'cat' || prop === 'subcat') {
             getData.category(prop, value, data => console.log(data));
         }
     }
