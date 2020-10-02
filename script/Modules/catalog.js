@@ -1,10 +1,13 @@
+import { getData } from './getData.js';
+import generateSubCatalog from './generateSubCatalog.js';
+
 const catalogMenu = () => {
+    const updateSubCatalog = generateSubCatalog();
     // Переменные
     const btnBurger = document.querySelector('.btn-burger'),
         catalog = document.querySelector('.catalog'),
         catalogList = document.querySelector('.catalog-list'),
         subCatalog = document.querySelector('.subcatalog'),
-        subcatalogHeader = document.querySelector('.subcatalog-header'),
         catalogListItem = document.querySelectorAll('.catalog-list__item');
 
     const overlay = document.createElement('div');
@@ -25,14 +28,16 @@ const catalogMenu = () => {
             const itemList = event.target.closest('.catalog-list__item');
 
             if (itemList) {
-                subcatalogHeader.innerHTML = itemList.innerHTML;
-                subCatalog.classList.add('subopen');
-                catalogListItem.forEach(item => {
-                    if (item !== itemList) {
-                        item.classList.remove('active');
-                    } else {
-                        item.classList.add('active');
-                    }
+                getData.subCatalog(itemList.textContent.trim(), data => {
+                    updateSubCatalog(itemList.innerHTML, data);
+                    subCatalog.classList.add('subopen');
+                    catalogListItem.forEach(item => {
+                        if (item !== itemList) {
+                            item.classList.remove('active');
+                        } else {
+                            item.classList.add('active');
+                        }
+                    });
                 });
             }
         },

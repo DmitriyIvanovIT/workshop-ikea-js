@@ -57,23 +57,25 @@ export const getData = {
     },
     catalog(callback) {
         this.get(data => {
-            const result = [];
-            data.forEach(item => {
-                if (!result.some(elem => elem === item.category)) {
-                    result.push(item.category);
+            const result = data.reduce((arr, item) => {
+                if (!arr.includes(item.category)) {
+                    arr.push(item.category);
                 }
-            });
+                return arr;
+            }, []);
+
             callback(result);
         });
     },
-    subCatalog(callback) {
+    subCatalog(value, callback) {
         this.get(data => {
-            const result = [];
-            data.forEach(item => {
-                if (!result.some(elem => elem === item.subcategory)) {
-                    result.push(item.subcategory);
-                }
-            });
+            const result = data
+                .reduce((arr, item) => {
+                    if (!arr.includes(item.subcategory) && item.category === value) {
+                        arr.push(item.subcategory);
+                    }
+                    return arr;
+                }, []);
             callback(result);
         });
     }
