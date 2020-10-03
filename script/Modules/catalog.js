@@ -1,7 +1,7 @@
-import { getData } from './getData.js';
+import getData from './getData.js';
 import generateSubCatalog from './generateSubCatalog.js';
 
-const catalogMenu = () => {
+const catalog = () => {
     const updateSubCatalog = generateSubCatalog();
     // Переменные
     const btnBurger = document.querySelector('.btn-burger'),
@@ -75,4 +75,4 @@ const catalogMenu = () => {
     });
 };
 
-export default catalogMenu;
+export default catalog;

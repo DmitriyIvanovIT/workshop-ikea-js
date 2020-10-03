@@ -4,7 +4,7 @@ const PARAM = {
     search: ['name', 'description', 'category', 'subcategory']
 };
 
-export const getData = {
+const getData = {
     url: 'database/dataBase.json',
     get(process) {
         fetch(this.url)
@@ -80,3 +80,4 @@ export const getData = {
         });
     }
 };
+export default getData;

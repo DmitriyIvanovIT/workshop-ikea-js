@@ -1,4 +1,4 @@
-import { getData } from "./getData.js";
+import getData from './getData.js';
 import catalogMenu from './catalog.js';
 
 const generateCatalog = () => {
