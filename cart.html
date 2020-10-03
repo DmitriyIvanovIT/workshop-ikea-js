@@ -13,6 +13,25 @@
 	<title>Корзина - IKEA</title>
 	<link rel="stylesheet" href="styles/styles.css">
 	<script src="script/index.js" type="module" defer></script>
+	<style>
+		@media (max-width: 575px) {
+			.product {
+				grid-template-columns: 152px 7fr 3fr;
+			}
+
+			.product__controls {
+				grid-column: 2;
+				justify-content: flex-start;
+			}
+
+			.product-controls__remove {
+				width: 25% !important;
+			}
+			.product-controls__quantity {
+				width: 75% !important;
+			}
+		}
+	</style>
 </head>
 <body>
 <main>
