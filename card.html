@@ -14,8 +14,13 @@
 	<link rel="stylesheet" href="styles/styles.css">
 	<script src="script/index.js" type="module" defer></script>
 	<style>
-		@media (max-width: 575px) {
-			.good.wrapper {
+		@media (max-width: 1024px) {
+			.good {
+				grid-column-gap: 0.25rem;
+			}
+		}
+		@media (max-width: 769px) {
+			.good {
 				display: flex !important;
     			flex-direction: column !important;
 			}
