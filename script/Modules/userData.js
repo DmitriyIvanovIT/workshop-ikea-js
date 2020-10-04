@@ -30,6 +30,17 @@ const userData = {
         console.log(this._cartListData);
         this.saveLocalStorage();
     },
+    set changeCountCartList(itemCart) {
+        let obj = this._cartListData.find(item => item.id === itemCart.id);
+        obj.count = itemCart.count;
+        this.saveLocalStorage();
+    },
+    set removeCartItem(id) {
+        const obj = this._cartListData.find(item => item.id === id);
+        const index = this._cartListData.indexOf(obj);
+        this._cartListData.splice(index, 1);
+        this.saveLocalStorage();
+    },
     saveLocalStorage() {
         localStorage.setItem('saveCartList', JSON.stringify(this._cartListData));
         localStorage.setItem('saveWishList', JSON.stringify(this._wishListData));
