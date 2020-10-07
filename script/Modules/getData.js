@@ -6,15 +6,18 @@ const PARAM = {
 
 const getData = {
     url: 'database/dataBase.json',
-    get(process) {
-        fetch(this.url)
-            .then(response => {
-                if (response.status !== 200) {
-                    throw new Error('Произошла ошибка');
-                }
+    async getData(url) {
 
-                return response.json();
-            })
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response.status}`);
+        }
+
+        return await response.json();
+    },
+    get(process) {
+        this.getData(this.url)
             .then(process)
             .catch(error => console.error(error));
     },

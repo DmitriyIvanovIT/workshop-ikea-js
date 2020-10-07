@@ -1,6 +1,50 @@
 import getData from "./getData.js";
 import userData from "./userData.js";
 
+const sendData = async (url, data) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        body: data,
+    });
+
+    if (!response.ok) {
+        throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response.status}`);
+    }
+
+    return await response.json();
+};
+
+const sendCart = (data) => {
+    const cartForm = document.querySelector('.cart-form'),
+        userName = document.querySelector('[name="name"]'),
+        email = document.querySelector('[name="email"]');
+
+    cartForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        if (userName.value.trim() === '' &&
+            email.value.trim() === '') {
+            alert('Заполните поля');
+        } else {
+            const formData = new FormData(cartForm);
+
+            const data = {};
+
+            for (const [key, value] of formData) {
+                data[key] = value;
+            }
+
+            data.order = userData.cartList; 
+
+            sendData('https://jsonplaceholder.typicode.com/posts', JSON.stringify(data))
+                .then(() => {
+                    cartForm.reset();
+                })
+                .catch(error => console.error(error));
+        }
+    });
+};
+
 const generateCart = () => {
     const cartListItems = document.querySelector('.cart-list'),
         cartTotalPrice = document.querySelector('.cart-total-price');
@@ -83,6 +127,7 @@ const generateCart = () => {
             cartListItems.insertAdjacentHTML('afterbegin', listItem);
         }
         cartTotalPrice.textContent = `${totalPreice}.-`;
+
     };
 
     if (location.pathname.includes('cart')) {
@@ -106,6 +151,8 @@ const generateCart = () => {
                 getData.cart(userData.cartList, createCard);
             }
         });
+
+        sendCart();
     }
 };
 
